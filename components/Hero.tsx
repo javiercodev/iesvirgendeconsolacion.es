@@ -13,6 +13,11 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 
 import BrutalButton from './ui/BrutalButton';
 
+// Definimos las Props para recibir la función de navegación desde App.tsx
+interface HeroProps {
+  onNavigate: (view: 'home' | 'center') => void;
+}
+
 // =============================================================================
 // CONFIGURACIÓN DE CONTENIDOS (PORTADA)
 // =============================================================================
@@ -34,7 +39,7 @@ const CONTENIDO_PORTADA = {
   // Configuración de los botones
   botones: {
     primario: { texto: "Ver Oferta Educativa", url: "#oferta-educativa" },
-    secundario: { texto: "Conoce el Centro", url: "#centro" }
+    secundario: { texto: "Conoce el Centro" } // Eliminamos la URL ya que usaremos navegación por estado
   },
 
   // Imagen dentro de la "tarjeta" derecha.
@@ -46,7 +51,7 @@ const CONTENIDO_PORTADA = {
 // COMPONENTE PRINCIPAL
 // =============================================================================
 
-const Hero: React.FC = () => {
+const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   return (
     // 'min-h-screen' asegura que la portada ocupe al menos toda la pantalla al cargar
     <section className="min-h-screen pt-32 pb-12 px-4 flex items-center justify-center overflow-hidden">
@@ -111,12 +116,12 @@ const Hero: React.FC = () => {
                 </BrutalButton>
             </a>
 
-            {/* Botón Secundario */}
-            <a href={CONTENIDO_PORTADA.botones.secundario.url}>
+            {/* Botón Secundario (Ahora ejecuta la acción de navegación) */}
+            <div onClick={() => onNavigate('center')} className="cursor-pointer">
                 <BrutalButton variant="secondary" size="lg">
                     {CONTENIDO_PORTADA.botones.secundario.texto}
                 </BrutalButton>
-            </a>
+            </div>
           </motion.div>
         </div>
 

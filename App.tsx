@@ -75,7 +75,7 @@ const App: React.FC = () => {
           /* === OPCIÓN A: PORTADA PRINCIPAL === */
           <>
             {/* Cabecera grande con imagen de fondo */}
-            <Hero />
+            <Hero onNavigate={(nuevaVista) => setCurrentView(nuevaVista)} />
             
             {/* Mosaico de asignaturas/niveles */}
             <BentoGrid />
