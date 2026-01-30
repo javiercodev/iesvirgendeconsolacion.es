@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    
+    <!-- 
+      =======================================================================
+      1. METADATOS TÉCNICOS Y SEO
+      Información básica para que el navegador y Google entiendan la página.
+      =======================================================================
+    -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Título que aparece en la pestaña del navegador -->
+    <title>IES Virgen de Consolación</title>
+    <meta name="description" content="Portal educativo y administrativo del IES Virgen de Consolación." />
+
+    
+    <!-- 
+      =======================================================================
+      2. FUENTES Y TIPOGRAFÍA (DISEÑO)
+      Conectamos con Google Fonts para usar la familia "Outfit".
+      =======================================================================
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+
+    <!-- 
+      =======================================================================
+      3. MOTOR DE ESTILOS (TAILWIND CSS)
+      Cargamos Tailwind directamente para estilizar la web sin complicaciones.
+      =======================================================================
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+
+    <!-- 
+      =======================================================================
+      4. ESTILOS PERSONALIZADOS
+      Pequeños ajustes que Tailwind no cubre por defecto.
+      =======================================================================
+    -->
+    <style>
+      /* 
+       * Aplicamos la fuente "Outfit" a todo el documento para dar identidad visual. 
+       */
+      body {
+        font-family: 'Outfit', sans-serif;
+      }
+
+      /* 
+       * UTILIDAD VISUAL: Ocultar Barras de Desplazamiento.
+       * A veces queremos hacer scroll horizontal en una galería pero que
+       * no se vea la barra gris fea del navegador. Estas clases hacen eso.
+       */
+      
+      /* Para Chrome, Safari y Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      
+      /* Para Firefox y Edge */
+      .no-scrollbar {
+          -ms-overflow-style: none; /* Internet Explorer 10+ */
+          scrollbar-width: none;    /* Firefox */
+      }
+    </style>
+
+    
+    <!-- 
+      =======================================================================
+      5. MAPA DE HERRAMIENTAS (IMPORT MAP)
+      Aquí definimos de dónde debe sacar el navegador las librerías como React.
+      Está formateado para que sea fácil actualizar versiones en el futuro.
+      =======================================================================
+    -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react":        "https://esm.sh/react@^19.2.3",
+        "react-dom/":   "https://esm.sh/react-dom@^19.2.3/",
+        "react/":       "https://esm.sh/react@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+        "framer-motion":"https://esm.sh/framer-motion@^12.27.5"
+      }
+    }
+    </script>
+
+    <!-- Hoja de estilos global de nuestra aplicación -->
+    <link rel="stylesheet" href="/index.css">
+
+  </head>
+  
+  
+  <!-- 
+    =======================================================================
+    CUERPO DE LA PÁGINA
+    Usamos un fondo amarillo suave (yellow-50) y texto oscuro (slate-900)
+    para asegurar un contraste cómodo a la lectura.
+    =======================================================================
+  -->
+  <body class="bg-yellow-50 text-slate-900">
+    
+    <!-- Aquí es donde React "dibujará" toda la aplicación -->
+    <div id="root"></div>
+
+    <!-- Script principal que inicia la lógica de la web -->
+    <script type="module" src="/index.tsx"></script>
+
+  </body>
+</html>
