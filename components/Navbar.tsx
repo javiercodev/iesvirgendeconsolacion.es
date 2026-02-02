@@ -3,7 +3,7 @@
  * @description BARRA DE NAVEGACIÓN SUPERIOR
  * 
  * Gestiona el movimiento del usuario por la aplicación.
- * Es un componente "inteligente": sabe en qué vista estás ('home' o 'centro')
+ * Es un componente "inteligente": sabe en qué vista estás ('home', 'centro' u 'offer')
  * y ajusta el comportamiento del scroll o cambio de pantalla según corresponda.
  */
 
@@ -24,10 +24,11 @@ const TEXTOS_NAVBAR = {
 
 interface NavbarProps {
   // Función que permite a la barra avisar a App.tsx de cambiar de vista
-  onNavigate: (vista: 'home' | 'center') => void;
+  // Se añade 'offer' a las opciones posibles
+  onNavigate: (vista: 'home' | 'center' | 'offer') => void;
   
   // Saber en qué vista estamos actualmente para iluminar el botón correcto
-  currentView: 'home' | 'center';
+  currentView: 'home' | 'center' | 'offer';
 }
 
 
@@ -46,7 +47,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
    * Decide qué hacer cuando el usuario hace clic en un enlace.
    * 
    * 1. Si es '#centro', cambiamos la pantalla completa.
-   * 2. Si es una sección normal (ej: '#noticias'), volvemos al 'home' y hacemos scroll.
+   * 2. Si es '#oferta', cambiamos la pantalla completa.
+   * 3. Si es una sección normal (ej: '#noticias'), volvemos al 'home' y hacemos scroll.
    */
   const gestionarClicNavegacion = (enlace: string) => {
     
@@ -58,9 +60,16 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
       onNavigate('center');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
+    }
+    
+    // CASO B: Ir a la vista detallada de oferta educativa (INCORPORACIÓN NUEVA)
+    if (enlace === '#oferta') {
+      onNavigate('offer');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     } 
     
-    // CASO B: Navegación estándar dentro de la Portada
+    // CASO C: Navegación estándar dentro de la Portada
     onNavigate('home');
 
     // Usamos un pequeño temporizador (100ms) para dar tiempo a React
@@ -91,8 +100,11 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
     }
     
     // 2. Botón Activo (Gris claro - Indica dónde estás)
-    // Solo se aplica si el botón lleva al centro y estamos en la vista del centro.
-    if (currentView === 'center' && item.href === '#centro') {
+    // Se aplica si el enlace coincide con la vista actual (centro u oferta)
+    if (
+        (currentView === 'center' && item.href === '#centro') || 
+        (currentView === 'offer' && item.href === '#oferta')
+    ) {
         return `${claseBase} bg-slate-100 border-slate-900`;
     }
 

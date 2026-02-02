@@ -9,7 +9,12 @@
  * NO contiene lógica compleja, solo datos puros.
  */
 
-import { BookOpen, Microscope, Pencil, Settings, Home } from 'lucide-react';
+// Se han añadido los nuevos iconos necesarios para la incorporación (GraduationCap, Hammer, Zap, etc.)
+// manteniendo los originales (BookOpen, Microscope, Pencil, etc.).
+import { 
+  BookOpen, Microscope, Pencil, Settings, Home, 
+  GraduationCap, Hammer, Zap, Building2, Wrench, Palette, Cpu, BookCheck 
+} from 'lucide-react';
 import { Course, NavItem, NewsItem, StaffMember, FacilityImage } from './types';
 
 
@@ -39,7 +44,7 @@ const generarUrlImagen = (nombreArchivo: string): string => {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Centro',           href: '#centro' },
-  { label: 'Oferta Educativa', href: '#oferta-educativa' },
+  { label: 'Oferta Educativa', href: '#oferta' },
   { label: 'Noticias',         href: '#noticias' },
   
   // La variante 'highlight' hace que este botón se pinte de color diferente (para llamar la atención).
@@ -49,7 +54,7 @@ export const NAV_ITEMS: NavItem[] = [
 
 /* 
  * =================================================================================
- *  2. TARJETAS DE OFERTA EDUCATIVA
+ *  2. TARJETAS DE OFERTA EDUCATIVA (Resumida)
  *  Lista de los cursos y etapas que se imparten.
  * =================================================================================
  */
@@ -100,6 +105,215 @@ export const COURSES: Course[] = [
     color:       '',
     colSpan:     3, // Ocupa todo el ancho en algunos diseños
   },
+];
+
+
+/* 
+ * =================================================================================
+ *  2.1. DETALLES TÉCNICOS DE LA OFERTA EDUCATIVA (INCORPORACIÓN NUEVA)
+ *  Estructuras de datos ampliadas para páginas de detalle o modales.
+ * =================================================================================
+ */
+
+export const DEPARTMENTS = [
+  "Automoción", "Biología y Geología", "Cultura clásica", "Economía y FOL",
+  "Edificación y obra civil", "Educación física", "Electricidad y electrónica",
+  "Educación plástica y visual", "Filosofía", "Física y Química",
+  "Formación, evaluación e innovación", "Francés", "Geografía e historia",
+  "Inglés", "Lengua castellana y literatura", "Matemáticas", "Música",
+  "Orientación", "Religión", "Tecnología e Informática"
+];
+
+export interface TechnicalDetails {
+  duration: string;
+  access: string;
+  objective: string;
+  modules: string[];
+  outlets: string[];
+}
+
+export interface StudyItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  details: TechnicalDetails;
+}
+
+export interface OfferCategory {
+  id: string;
+  category: string;
+  icon: any;
+  items: StudyItem[];
+}
+
+export const EDUCATIONAL_OFFER_DETAILED: OfferCategory[] = [
+  {
+    id: "secundaria",
+    category: "Educación Secundaria",
+    icon: BookOpen,
+    items: [
+      {
+        id: "eso-comun",
+        title: "Educación Secundaria Obligatoria (ESO)",
+        subtitle: "Niveles: 1º, 2º, 3º y 4º",
+        details: {
+          duration: "4 Cursos académicos (12-16 años)",
+          access: "Tras cursar Educación Primaria satisfactoriamente.",
+          objective: "Transmitir elementos básicos de la cultura, afianzar hábitos de estudio y trabajo.",
+          modules: ["Lengua y Literatura", "Geografía e Historia", "Matemáticas", "Biología y Geología", "Física y Química", "Educación Física", "Educación Plástica", "Música", "Tecnología", "Valores Éticos/Religión"],
+          outlets: ["Bachillerato", "Ciclos Formativos de Grado Medio"]
+        }
+      },
+      {
+        id: "eso-frances",
+        title: "ESO Bilingüe Francés",
+        subtitle: "Enseñanza Plurilingüe",
+        details: {
+          duration: "4 Cursos académicos con materias ANL en Francés",
+          access: "Nivel de competencia lingüística adecuado o interés en plurilingüismo.",
+          objective: "Obtener un alto nivel de competencia en lengua francesa mientras se cursa el currículo oficial.",
+          modules: ["Currículo ESO oficial", "Materias No Lingüísticas (ANL) impartidas en Francés", "Cultura Plurilingüe", "Inmersión cultural"],
+          outlets: ["Bachillerato Bilingüe", "Movilidad Internacional", "Pruebas de Certificación Oficial DELF/DALF"]
+        }
+      }
+    ]
+  },
+  {
+    id: "bachillerato",
+    category: "Bachillerato",
+    icon: GraduationCap,
+    items: [
+      {
+        id: "bach-humanidades",
+        title: "Humanidades y Ciencias Sociales",
+        subtitle: "Orientación Letras y Economía",
+        details: {
+          duration: "2 Cursos académicos",
+          access: "Título de Graduado en ESO o equivalente.",
+          objective: "Formación general que proporciona madurez intelectual y humana.",
+          modules: ["Latín", "Griego", "Economía", "Historia del Mundo Contemporáneo", "Matemáticas Aplicadas a las CCSS", "Literatura Universal", "Patrimonio Artístico"],
+          outlets: ["Universidad (Grados en Derecho, ADE, Educación...)", "Ciclos de Grado Superior", "Enseñanzas Artísticas"]
+        }
+      },
+      {
+        id: "bach-ciencias",
+        title: "Ciencias y Tecnología",
+        subtitle: "Orientación Científica y Técnica",
+        details: {
+          duration: "2 Cursos académicos",
+          access: "Título de Graduado en ESO o equivalente.",
+          objective: "Capacitar para el acceso a estudios científicos, tecnológicos y biosanitarios.",
+          modules: ["Matemáticas", "Física", "Química", "Biología", "Geología", "Dibujo Técnico", "Tecnología Industrial"],
+          outlets: ["Universidad (Ingenierías, Medicina, Arquitectura...)", "Ciclos de Grado Superior", "Cuerpos de Seguridad"]
+        }
+      }
+    ]
+  },
+  {
+    id: "fpb",
+    category: "Formación Profesional Básica",
+    icon: Hammer,
+    items: [
+      {
+        id: "fpb-automocion",
+        title: "Mantenimiento de Vehículos",
+        subtitle: "Título Profesional Básico",
+        details: {
+          duration: "2000 horas (2 cursos académicos)",
+          access: "Haber cumplido 15 años y no superar los 17. Recomendación docente.",
+          objective: "Iniciación profesional en mecánica y electricidad del automóvil.",
+          modules: ["Mantenimiento Amovible", "Electricidad del Vehículo", "Mecánica del Vehículo", "Ciencias Aplicadas I y II", "Comunicación y Sociedad I y II", "FCT (Prácticas Empresa)"],
+          outlets: ["Ciclo Formativo de Grado Medio (Preferente)", "Ayudante de taller", "Título de Graduado en ESO"]
+        }
+      },
+      {
+        id: "fpb-electricidad",
+        title: "Electricidad y Electrónica",
+        subtitle: "Título Profesional Básico",
+        details: {
+          duration: "2000 horas (2 cursos académicos)",
+          access: "Recomendación del equipo docente para alumnado de 15 a 17 años.",
+          objective: "Adquirir competencias básicas en instalaciones eléctricas y equipos electrónicos.",
+          modules: ["Instalaciones Eléctricas de Viviendas", "Equipos Eléctricos y Electrónicos", "Montaje de Instalaciones de Telecomunicación", "Ciencias Aplicadas", "Comunicación y Sociedad"],
+          outlets: ["Grado Medio en Electricidad", "Operario de instalaciones eléctricas", "Título de Graduado en ESO"]
+        }
+      }
+    ]
+  },
+  {
+    id: "cfgm",
+    category: "Grado Medio (CFGM)",
+    icon: Zap,
+    items: [
+      {
+        id: "cfgm-electromecanica",
+        title: "Electromecánica de Vehículos Automóviles",
+        subtitle: "Técnico en Electromecánica",
+        details: {
+          duration: "2000 horas (2 años)",
+          access: "Título de ESO, FP Básica o Prueba de Acceso.",
+          objective: "Realizar operaciones de mantenimiento, montaje y transformaciones en vehículos.",
+          modules: ["Motores", "Sistemas Auxiliares del Motor", "Circuitos de Fluidos", "Sistemas de Seguridad y Confortabilidad", "Sistemas de Carga y Arranque", "Mecanizado Básico", "FOL"],
+          outlets: ["Mecánico de automóviles", "Electricista de vehículos", "Vendedor de recambios", "Técnico de ITV"]
+        }
+      },
+      {
+        id: "cfgm-instalaciones",
+        title: "Instalaciones Eléctricas y Automáticas",
+        subtitle: "Técnico en Electricidad",
+        details: {
+          duration: "2000 horas (2 años)",
+          access: "Título de ESO, FP Básica o Prueba de Acceso.",
+          objective: "Montar y mantener infraestructuras de telecomunicación, instalaciones eléctricas y máquinas.",
+          modules: ["Automatismos Industriales", "Electrónica", "Instalaciones Eléctricas Interiores", "Infraestructuras Comunes de Telecomunicación", "Instalaciones Fotovoltaicas", "Máquinas Eléctricas"],
+          outlets: ["Instalador electricista", "Montador de cuadros eléctricos", "Instalador de antenas y telefonía", "Mantenimiento industrial"]
+        }
+      }
+    ]
+  },
+  {
+    id: "cfgs",
+    category: "Grado Superior (CFGS)",
+    icon: Building2,
+    items: [
+      {
+        id: "cfgs-automocion",
+        title: "Automoción",
+        subtitle: "Técnico Superior en Automoción",
+        details: {
+          duration: "2000 horas (2 años)",
+          access: "Título de Bachiller, Grado Medio o Prueba de Acceso a Grado Superior.",
+          objective: "Organizar y supervisar el mantenimiento y reparación de vehículos y la logística del sector.",
+          modules: ["Sistemas de Transmisión de Fuerzas", "Estructuras del Vehículo", "Gestión y Logística del Taller", "Sistemas Eléctricos y Electrónicos", "Motores Térmicos", "Pintura y Embellecimiento", "Proyecto de Automoción"],
+          outlets: ["Jefe de Taller", "Perito de Seguros", "Responsable de Ventas", "Encargado de ITV", "Técnico en diagnosis"]
+        }
+      },
+      {
+        id: "cfgs-proyectos",
+        title: "Proyectos de Edificación",
+        subtitle: "Técnico Superior en Edificación",
+        details: {
+          duration: "2000 horas (2 años)",
+          access: "Título de Bachiller, Grado Medio o Prueba de Acceso.",
+          objective: "Desarrollar proyectos de edificación, gestionar la documentación y controlar la ejecución.",
+          modules: ["Representaciones de Construcción", "Instalaciones en Edificación", "Diseño y Estructuras de Edificación", "Mediciones y Valoraciones", "Planificación de Obra", "Eficiencia Energética", "BIM"],
+          outlets: ["Delineante proyectista", "Ayudante de obra", "Técnico en control de costes", "Gestor de proyectos inmobiliarios"]
+        }
+      },
+      {
+        id: "cfgs-sistemas",
+        title: "Sistemas Electrotécnicos y Automatizados",
+        subtitle: "Técnico Superior en Electricidad",
+        details: {
+          duration: "2000 horas (2 años)",
+          access: "Título de Bachiller, Grado Medio o Prueba de Acceso.",
+          objective: "Desarrollar y supervisar proyectos de instalaciones eléctricas, automatismos y domótica.",
+          modules: ["Procesos en Instalaciones de Infraestructuras", "Gestión del Montaje", "Sistemas y Máquinas Eléctricas", "Configuración de Instalaciones de Domótica", "Desarrollo de Sistemas de Medida y Control"],
+          outlets: ["Proyectista electrotécnico", "Jefe de equipo de instaladores", "Técnico en mantenimiento industrial", "Gestor de instalaciones de energías renovables"]
+        }
+      }
+    ]
+  }
 ];
 
 

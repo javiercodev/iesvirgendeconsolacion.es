@@ -19,6 +19,9 @@ import Footer from './components/Footer';
 import SchoolCenter from './components/SchoolCenter'; // La vista detallada del centro
 import BrutalButton from "./components/ui/BrutalButton";
 
+// Importación nueva añadida
+import EducationalOffer from './components/EducationalOffer'; 
+
 // =============================================================================
 // 1. CONFIGURACIÓN DE CONTENIDO (FÁCIL DE EDITAR)
 // =============================================================================
@@ -50,9 +53,9 @@ const App: React.FC = () => {
   /* 
    * ESTADO DE NAVEGACIÓN
    * 'currentView' guarda qué pantalla estamos viendo. 
-   * Por defecto, mostramos la portada ('home').
+   * Se añade 'offer' a las opciones posibles.
    */
-  const [currentView, setCurrentView] = useState<'home' | 'center'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer'>('home');
 
   return (
     <div className="min-h-screen bg-yellow-50 text-slate-900 overflow-x-hidden selection:bg-orange-500 selection:text-white">
@@ -68,9 +71,9 @@ const App: React.FC = () => {
       />
       
       <main>
-        {/* CONDICIONAL: ¿Qué mostramos según la variable 'currentView'? */}
+        {/* CONDICIONALES: ¿Qué mostramos según la variable 'currentView'? */}
         
-        {currentView === 'home' ? (
+        {currentView === 'home' && (
           
           /* === OPCIÓN A: PORTADA PRINCIPAL === */
           <>
@@ -118,13 +121,14 @@ const App: React.FC = () => {
               </div>
             </section>
           </>
-
-        ) : (
-          
-          /* === OPCIÓN B: INFORMACIÓN DETALLADA DEL CENTRO === */
-          <SchoolCenter />
-          
         )}
+
+        {/* === OPCIÓN B: INFORMACIÓN DETALLADA DEL CENTRO === */}
+        {currentView === 'center' && <SchoolCenter />}
+
+        {/* === OPCIÓN C: OFERTA EDUCATIVA (Incorporación nueva) === */}
+        {currentView === 'offer' && <EducationalOffer />}
+
       </main>
 
       {/* PIE DE PÁGINA (SIEMPRE VISIBLE) */}
