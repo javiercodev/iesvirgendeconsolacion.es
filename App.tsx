@@ -4,10 +4,10 @@
  * 
  * Este archivo conecta todas las piezas de la web: el menú, la portada, 
  * las noticias y el pie de página. 
- * También gestiona la "memoria" simple de la web (saber si estás en "Inicio" o viendo el "Centro").
+ * También gestiona la "memoria" simple de la web (saber si estás en "Inicio", viendo el "Centro" u "Oferta").
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // --- IMPORTS: BLOQUES DE CONSTRUCCIÓN ---
 // (Componentes que hemos creado en otros archivos)
@@ -53,9 +53,10 @@ const App: React.FC = () => {
   /* 
    * ESTADO DE NAVEGACIÓN
    * 'currentView' guarda qué pantalla estamos viendo. 
-   * Se añade 'offer' a las opciones posibles.
+   * Se añade 'offer' a las opciones posibles para una navegación separada.
    */
   const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer'>('home');
+
 
   return (
     <div className="min-h-screen bg-yellow-50 text-slate-900 overflow-x-hidden selection:bg-orange-500 selection:text-white">
@@ -126,7 +127,7 @@ const App: React.FC = () => {
         {/* === OPCIÓN B: INFORMACIÓN DETALLADA DEL CENTRO === */}
         {currentView === 'center' && <SchoolCenter />}
 
-        {/* === OPCIÓN C: OFERTA EDUCATIVA (Incorporación nueva) === */}
+        {/* === OPCIÓN C: OFERTA EDUCATIVA === */}
         {currentView === 'offer' && <EducationalOffer />}
 
       </main>

@@ -14,8 +14,9 @@ import { ArrowRight, Sparkles } from 'lucide-react';
 import BrutalButton from './ui/BrutalButton';
 
 // Definimos las Props para recibir la función de navegación desde App.tsx
+// MODIFICADO: Añadimos 'offer' a las opciones posibles
 interface HeroProps {
-  onNavigate: (view: 'home' | 'center') => void;
+  onNavigate: (view: 'home' | 'center' | 'offer') => void;
 }
 
 // =============================================================================
@@ -37,9 +38,10 @@ const CONTENIDO_PORTADA = {
   subtitulo: "Formación Profesional, tecnología y un ambiente educativo que se adapta a ti. Rompe el molde en el IES Virgen de Consolación.",
 
   // Configuración de los botones
+  // NOTA: Hemos eliminado las URLs directas porque usamos onNavigate
   botones: {
-    primario: { texto: "Ver Oferta Educativa", url: "#oferta-educativa" },
-    secundario: { texto: "Conoce el Centro" } // Eliminamos la URL ya que usaremos navegación por estado
+    primario: { texto: "Ver Oferta Educativa" },
+    secundario: { texto: "Conoce el Centro" } 
   },
 
   // Imagen dentro de la "tarjeta" derecha.
@@ -110,14 +112,20 @@ const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             transition={{ delay: 0.6 }}
           >
             {/* Botón Primario */}
-            <a href={CONTENIDO_PORTADA.botones.primario.url}>
+            <div 
+                onClick={() => onNavigate('offer')} 
+                className="cursor-pointer"
+            >
                 <BrutalButton variant="accent" size="lg" icon={<ArrowRight size={20} />}>
                     {CONTENIDO_PORTADA.botones.primario.texto}
                 </BrutalButton>
-            </a>
+            </div>
 
-            {/* Botón Secundario (Ahora ejecuta la acción de navegación) */}
-            <div onClick={() => onNavigate('center')} className="cursor-pointer">
+            {/* Botón Secundario */}
+            <div 
+                onClick={() => onNavigate('center')} 
+                className="cursor-pointer"
+            >
                 <BrutalButton variant="secondary" size="lg">
                     {CONTENIDO_PORTADA.botones.secundario.texto}
                 </BrutalButton>
