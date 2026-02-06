@@ -4,23 +4,24 @@
  * 
  * Este archivo conecta todas las piezas de la web: el menú, la portada, 
  * las noticias y el pie de página. 
- * También gestiona la "memoria" simple de la web (saber si estás en "Inicio", viendo el "Centro" u "Oferta").
+ * También gestiona la "memoria" simple de la web (saber si estás en "Inicio", "Centro", "Oferta" o "Noticias").
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // --- IMPORTS: BLOQUES DE CONSTRUCCIÓN ---
 // (Componentes que hemos creado en otros archivos)
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BentoGrid from './components/BentoGrid';
-import NewsCards from './components/Newscard';
+import NewsCards from './components/NewsCards';
 import Footer from './components/Footer';
 import SchoolCenter from './components/SchoolCenter'; // La vista detallada del centro
 import BrutalButton from "./components/ui/BrutalButton";
 
-// Importación nueva añadida
+// Importaciones nuevas añadidas
 import EducationalOffer from './components/EducationalOffer'; 
+import NewsView from './components/NewsView';
 
 // =============================================================================
 // 1. CONFIGURACIÓN DE CONTENIDO (FÁCIL DE EDITAR)
@@ -53,22 +54,30 @@ const App: React.FC = () => {
   /* 
    * ESTADO DE NAVEGACIÓN
    * 'currentView' guarda qué pantalla estamos viendo. 
-   * Se añade 'offer' a las opciones posibles para una navegación separada.
+   * Se añade 'news' a las opciones posibles para una navegación separada.
    */
-  const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer' | 'news'>('home');
 
+  /**
+   * FUNCIÓN CENTRAL DE NAVEGACIÓN
+   * Cambia la vista y asegura que la página vuelva arriba suavemente.
+   */
+  const handleNavigate = (view: 'home' | 'center' | 'offer' | 'news') => {
+    setCurrentView(view);
+    // Hacemos scroll al inicio para asegurar que el usuario vea el contenido desde arriba
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-yellow-50 text-slate-900 overflow-x-hidden selection:bg-orange-500 selection:text-white">
       
       {/* 
         BARRA SUPERIOR (MENÚ)
-        Le damos la instrucción 'onNavigate' para que, al pulsar botones,
-        pueda cambiar nuestro estado 'currentView'.
+        Le pasamos 'handleNavigate' para gestionar los clics del menú.
       */}
       <Navbar 
         currentView={currentView} 
-        onNavigate={(nuevaVista) => setCurrentView(nuevaVista)} 
+        onNavigate={handleNavigate} 
       />
       
       <main>
@@ -79,7 +88,7 @@ const App: React.FC = () => {
           /* === OPCIÓN A: PORTADA PRINCIPAL === */
           <>
             {/* Cabecera grande con imagen de fondo */}
-            <Hero onNavigate={(nuevaVista) => setCurrentView(nuevaVista)} />
+            <Hero onNavigate={handleNavigate} />
             
             {/* Mosaico de asignaturas/niveles */}
             <BentoGrid />
@@ -95,8 +104,12 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            {/* Últimas novedades */}
-            <NewsCards />
+            {/* 
+                Últimas novedades 
+                Ahora pasamos onNavigate para que al hacer clic en una noticia
+                podamos cambiar la vista completa a 'news'
+            */}
+            <NewsCards onNavigate={handleNavigate} />
 
             {/* SECCIÓN MATRÍCULA (TARJETA NARANJA) */}
             <section className="py-20 px-4" id="matricula">
@@ -129,6 +142,9 @@ const App: React.FC = () => {
 
         {/* === OPCIÓN C: OFERTA EDUCATIVA === */}
         {currentView === 'offer' && <EducationalOffer />}
+
+        {/* === OPCIÓN D: VISTA DE NOTICIAS COMPLETA (Incorporación nueva) === */}
+        {currentView === 'news' && <NewsView />}
 
       </main>
 

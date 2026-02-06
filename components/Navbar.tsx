@@ -25,10 +25,10 @@ const TEXTOS_NAVBAR = {
 interface NavbarProps {
   // Función que permite a la barra avisar a App.tsx de cambiar de vista
   // Se añade 'offer' a las opciones posibles
-  onNavigate: (vista: 'home' | 'center' | 'offer') => void;
+  onNavigate: (vista: 'home' | 'center' | 'offer' | 'news' ) => void;
   
   // Saber en qué vista estamos actualmente para iluminar el botón correcto
-  currentView: 'home' | 'center' | 'offer';
+  currentView: 'home' | 'center' | 'offer'| 'news';
 }
 
 
@@ -62,14 +62,21 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
       return;
     }
     
-    // CASO B: Ir a la vista detallada de oferta educativa (INCORPORACIÓN NUEVA)
+    // CASO B: Ir a la vista detallada de oferta educativa
     if (enlace === '#oferta') {
       onNavigate('offer');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     } 
+
+    // CASO C: Ir a la vista detallada de noticias (Incorportacion reciente)
+    if (enlace === '#noticias') {
+      onNavigate('news');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    } 
     
-    // CASO C: Navegación estándar dentro de la Portada
+    // CASO D: Navegación estándar dentro de la Portada
     onNavigate('home');
 
     // Usamos un pequeño temporizador (100ms) para dar tiempo a React

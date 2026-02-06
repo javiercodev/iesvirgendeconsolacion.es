@@ -9,8 +9,7 @@
  * NO contiene lógica compleja, solo datos puros.
  */
 
-// Se han añadido los nuevos iconos necesarios para la incorporación (GraduationCap, Hammer, Zap, etc.)
-// manteniendo los originales (BookOpen, Microscope, Pencil, etc.).
+// Imports combinados: Se mantienen los originales y se añaden los nuevos (Wrench, Cpu, etc.)
 import { 
   BookOpen, Microscope, Pencil, Settings, Home, 
   GraduationCap, Hammer, Zap, Building2, Wrench, Palette, Cpu, BookCheck 
@@ -43,18 +42,16 @@ const generarUrlImagen = (nombreArchivo: string): string => {
  */
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Centro',           href: '#centro' },
+  { label: 'El Centro',        href: '#centro' },
   { label: 'Oferta Educativa', href: '#oferta' },
   { label: 'Noticias',         href: '#noticias' },
-  
-  // La variante 'highlight' hace que este botón se pinte de color diferente (para llamar la atención).
-  { label: 'Secretaría',       href: '#matricula', variant: 'highlight' },
+  { label: 'Matricúlate',      href: '#matricula', variant: 'highlight' },
 ];
 
 
 /* 
  * =================================================================================
- *  2. TARJETAS DE OFERTA EDUCATIVA (Resumida)
+ *  2. TARJETAS DE OFERTA EDUCATIVA
  *  Lista de los cursos y etapas que se imparten.
  * =================================================================================
  */
@@ -66,8 +63,8 @@ export const COURSES: Course[] = [
     level:       'ESO',
     description: 'La base de tu futuro. Idiomas, tecnología y valores en un entorno dinámico.',
     icon:        BookOpen,
-    color:       '', 
-    colSpan:     2, // Ocupa 2 espacios en el diseño
+    color:       'bg-blue-300', 
+    colSpan:     2,
   },
   {
     id:          '2',
@@ -75,43 +72,43 @@ export const COURSES: Course[] = [
     level:       'Bachillerato',
     description: 'Prepara tu salto a la universidad con laboratorios de última generación.',
     icon:        Microscope,
-    color:       '',
+    color:       'bg-green-300',
     colSpan:     1,
   },
   {
     id:          '3',
-    title:       'Bachillerato Humanidades',
-    level:       'Bachillerato',
-    description: 'Construye tu futuro comprendiendo el pasado, el lenguaje y la sociedad.',
-    icon:        Pencil,
-    color:       '',
+    title:       'FP Automoción',
+    level:       'FP',
+    description: 'Aprende haciendo. Talleres equipados para la mecánica del futuro.',
+    icon:        Wrench,
+    color:       'bg-orange-300',
     colSpan:     1,
   },
   {
     id:          '4',
-    title:       'FP: Electricidad y Automoción',
+    title:       'FP Informática',
     level:       'FP',
-    description: 'Construye tu futuro en talleres equipados, aprendiendo con práctica real.',
-    icon:        Settings,
-    color:       '',
+    description: 'Desarrollo Web y Sistemas. Conviértete en el creador digital.',
+    icon:        Cpu,
+    color:       'bg-purple-300',
     colSpan:     2,
   },
   {
     id:          '5',
-    title:       'FP: Edificación y Obra Civil',
-    level:       'FP',
-    description: 'Fórmate en proyectos reales, domina técnicas de construcción y dibuja tu carrera.',
-    icon:        Home,
-    color:       '',
-    colSpan:     3, // Ocupa todo el ancho en algunos diseños
+    title:       'Bachillerato Artes',
+    level:       'Bachillerato',
+    description: 'Expresa tu creatividad. Diseño, pintura y cultura audiovisual.',
+    icon:        Palette,
+    color:       'bg-pink-300',
+    colSpan:     3, 
   },
 ];
 
 
 /* 
  * =================================================================================
- *  2.1. DETALLES TÉCNICOS DE LA OFERTA EDUCATIVA (INCORPORACIÓN NUEVA)
- *  Estructuras de datos ampliadas para páginas de detalle o modales.
+ *  2.1. DETALLES Y DEPARTAMENTOS (NUEVA SECCIÓN)
+ *  Datos extendidos para la vista de Oferta Educativa.
  * =================================================================================
  */
 
@@ -161,7 +158,7 @@ export const EDUCATIONAL_OFFER_DETAILED: OfferCategory[] = [
           access: "Tras cursar Educación Primaria satisfactoriamente.",
           objective: "Transmitir elementos básicos de la cultura, afianzar hábitos de estudio y trabajo.",
           modules: ["Lengua y Literatura", "Geografía e Historia", "Matemáticas", "Biología y Geología", "Física y Química", "Educación Física", "Educación Plástica", "Música", "Tecnología", "Valores Éticos/Religión"],
-          outlets: ["Bachillerato", "Ciclos Formativos de Grado Medio"]
+          outlets: ["Bachillerato", "Ciclos Formativos de Grado Medio", "Artes Plásticas y Diseño"]
         }
       },
       {
@@ -327,24 +324,51 @@ export const EDUCATIONAL_OFFER_DETAILED: OfferCategory[] = [
 export const NEWS: NewsItem[] = [
   {
     id:       '1',
-    title:    '¡Se ha rediseñado la web del centro desde 0!',
-    date:     '22 ENE',
-    category: 'Institucional',
-    image:    generarUrlImagen('newsitem-image-001.jpg'),
+    title:    '¡Somos Erasmus+!',
+    date:     '12 OCT',
+    category: 'Internacional',
+    image:    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400&auto=format&fit=crop',
+    content:  'Estamos muy orgullosos de anunciar que nuestro centro ha recibido la acreditación Erasmus+ para los próximos años. Esta noticia abre un mundo de oportunidades para nuestros alumnos y profesores, permitiéndoles participar en intercambios culturales y académicos en toda Europa. El objetivo principal es fomentar la dimensión europea de la educación y mejorar la calidad de la formación profesional mediante la movilidad internacional. ¡Prepara tu maleta, el futuro es europeo!'
   },
   {
     id:       '2',
-    title:    'Feria de FP 2026',
-    date:     '15 FEB',
+    title:    'Feria de FP 2024',
+    date:     '25 NOV',
     category: 'Eventos',
-    image:    generarUrlImagen('newsitem-image-002.jpg'),
+    image:    'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=400&auto=format&fit=crop',
+    content:  'La Feria de Formación Profesional 2024 ha sido un éxito rotundo. Durante dos días, nuestro pabellón se transformó en un escaparate de talento y tecnología. Los diferentes departamentos mostraron proyectos innovadores, desde vehículos eléctricos restaurados hasta maquetas de edificación sostenible. Agradecemos a todas las empresas locales que nos visitaron para conocer a sus futuros profesionales y a los centros de secundaria que vinieron a descubrir su vocación.'
   },
   {
     id:       '3',
-    title:    'Nuevos Talleres de Robótica',
-    date:     '10 MAR',
-    category: 'Innovación',
-    image:    generarUrlImagen('newsitem-image-003.jpg'),
+    title:    'Nuevos Talleres',
+    date:     '02 DIC',
+    category: 'Infraestructura',
+    image:    'https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=400&auto=format&fit=crop',
+    content:  'La inversión en educación no para. Este mes hemos inaugurado los nuevos talleres de electromecánica y electricidad. Equipados con herramientas de última generación y maquinaria industrial real, estos espacios están diseñados para que el aprendizaje sea 100% práctico. "Queremos que el alumno se sienta en el instituto como si ya estuviera en el puesto de trabajo", comentó la directiva durante la inauguración.'
+  },
+  {
+    id:       '4',
+    title:    'Ganadores Concurso Matemáticas',
+    date:     '15 ENE',
+    category: 'Académico',
+    image:    'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=400&auto=format&fit=crop',
+    content:  '¡Matemáticas de oro! Nuestros alumnos de 2º de Bachillerato han conseguido el primer puesto en la Olimpiada Matemática Comarcal. Tras enfrentarse a complejos problemas de lógica y cálculo, demostraron que el esfuerzo y el pensamiento crítico son sus mejores aliados. Felicitamos especialmente a Lucía y Pablo por su brillante participación y al departamento de matemáticas por su constante apoyo.'
+  },
+  {
+    id:       '5',
+    title:    'Visita a la Factoría Airbus',
+    date:     '20 ENE',
+    category: 'Salidas',
+    image:    'https://images.unsplash.com/photo-1540962351504-03099e0a754b?q=80&w=400&auto=format&fit=crop',
+    content:  'Un viaje a las nubes. Los alumnos de los ciclos superiores de Automoción y Sistemas Electrotécnicos visitaron las instalaciones de Airbus en Sevilla. Pudieron observar de cerca los procesos de montaje del A400M y conocer los estándares de calidad que rigen la industria aeroespacial. Una experiencia inspiradora que conecta directamente el currículo académico con la industria real de nuestra comunidad.'
+  },
+  {
+    id:       '6',
+    title:    'Inauguración Punto Violeta',
+    date:     '05 FEB',
+    category: 'Convivencia',
+    image:    'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=400&auto=format&fit=crop',
+    content:  'En el IES Virgen de Consolación apostamos por una convivencia sana e igualitaria. El nuevo Punto Violeta es un espacio de información, apoyo y concienciación contra la violencia de género y por la igualdad real en nuestras aulas. Gestionado por el equipo de orientación y alumnos mediadores, este rincón simboliza nuestro compromiso con los valores democráticos y el respeto mutuo.'
   },
 ];
 
@@ -369,7 +393,7 @@ export const MANAGEMENT_TEAM: StaffMember[] = [
 
 // JEFES DE DEPARTAMENTO
 export const DEPARTMENT_HEADS: StaffMember[] = [
-  { role: 'Actividades Extraescolares',     name: 'Milagros Ribes Castera' },
+  { role: 'Actividades Complementarias y Extraescolares',     name: 'Milagros Ribes Castera' },
   { role: 'Biología y Geología',            name: 'Francisco de Asís Orozco Rodríguez' },
   { role: 'Dibujo y Artes Plásticas',       name: 'José Manuel López López' },
   { role: 'Edificación y Obra Civil',       name: 'María Auxiliadora Santos Barranco' },
@@ -377,13 +401,13 @@ export const DEPARTMENT_HEADS: StaffMember[] = [
   { role: 'Electricidad y Electrónica',     name: 'Antonio Manuel Rodríguez Losa' },
   { role: 'Filosofía',                      name: 'Miguel Antonio López Martín' },
   { role: 'Física y Química',               name: 'J. Jaime Ruiz-Mateos Garrido' },
-  { role: 'FOL - Economía',                 name: 'José Ángel Fernández Sánchez' },
-  { role: 'Formación e Innovación',         name: 'José Fernández Jurado' },
+  { role: 'Formación y Orientación Laboral - Economía', name: 'José Ángel Fernández Sánchez' },
+  { role: 'Formación, Evaluación e Innovación Educativa',   name: 'José Fernández Jurado' },
   { role: 'Francés',                        name: 'Irene López Godoy' },
   { role: 'Geografía e Historia',           name: 'María Lourdes Bermejo González' },
   { role: 'Inglés',                         name: 'Carlos Manuel Villalonga Morales' },
-  { role: 'Lengua Castellana - Clásicas',   name: 'María Mercedes Guirao Silvente' },
-  { role: 'Transporte y Mantenimiento',     name: 'Isidro Luque Hijón' },
+  { role: 'Lengua Castellana y Literatura - Clásicas', name: 'María Mercedes Guirao Silvente' },
+  { role: 'Transporte y Mantenimiento de Vehículos',   name: 'Isidro Luque Hijón' },
   { role: 'Matemáticas',                    name: 'Ricardo Rodríguez Gutiérrez Ravé' },
   { role: 'Música',                         name: 'Consolación Villalonga Morales' },
   { role: 'Orientación',                    name: 'María Dolores Barrera Castillo' },
@@ -420,12 +444,12 @@ export const TUTORS: Record<string, StaffMember[]> = {
     { role: 'Tutora Unidad Ed. Especial', name: 'Estefanía Gómez Martín' },
   ],
   'Bachillerato': [
-    { role: 'Tutora 1º Bach A (Humanidades/CS)',  name: 'Luisa María Sánchez Sánchez' },
-    { role: 'Tutora 1º Bach B (Mixto)',           name: 'María Luisa García Domínguez' },
-    { role: 'Tutor 1º Bach C (Ciencias/Tec)',     name: 'Manuel Candón Albendiz' },
-    { role: 'Tutor 2º Bach A (Humanidades/CS)',   name: 'Miguel Ángel de la Rosa Navarro' },
-    { role: 'Tutor 2º Bach B (CC. Sociales)',     name: 'Jesús Manuel Ganga González' },
-    { role: 'Tutora 2º Bach C (Ciencias/Tec)',    name: 'Elena Fernández Rodríguez' },
+    { role: 'Tutora 1º Bach A Humanidades y CS',  name: 'Luisa María Sánchez Sánchez' },
+    { role: 'Tutora 1º Bach B Mixto',           name: 'María Luisa García Domínguez' },
+    { role: 'Tutor 1º Bach C Ciencias y Tecnología', name: 'Manuel Candón Albendiz' },
+    { role: 'Tutor 2º Bach A Humanidades y CS',   name: 'Miguel Ángel de la Rosa Navarro' },
+    { role: 'Tutor 2º Bach B Ciencias Sociales',  name: 'Jesús Manuel Ganga González' },
+    { role: 'Tutora 2º Bach C Ciencias y Tecnología', name: 'Elena Fernández Rodríguez' },
   ],
   'Formación Profesional': [
     { role: 'Tutor 1º CFGB Mantenimiento',        name: 'Juan Miguel Rodríguez González' },

@@ -111,6 +111,8 @@ export interface NewsItem {
   
   // Ruta o enlace a la fotografía de portada.
   image: string;
+
+  content?: string;
 }
 
 export interface StaffMember {

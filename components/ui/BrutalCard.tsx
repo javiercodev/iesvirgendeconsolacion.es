@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
 /* 
  * =================================================================================
@@ -33,7 +33,9 @@ const SOMBRA = {
  * =================================================================================
  */
 
-interface BrutalCardProps {
+// CORRECCIÓN IMPORTANTE: Extendemos 'HTMLMotionProps<"div">' para que el componente
+// acepte propiedades nativas como 'onClick' (necesario para la navegación).
+interface BrutalCardProps extends HTMLMotionProps<"div"> {
   
   /** Elementos HTML que irán dentro de la tarjeta (texto, imagen, botones...) */
   children: React.ReactNode;
@@ -67,7 +69,8 @@ const BrutalCard: React.FC<BrutalCardProps> = ({
   children, 
   color = 'bg-white', 
   className = '',
-  hoverEffect = true
+  hoverEffect = true,
+  ...props // Recogemos el resto de props (como onClick)
 }) => {
   
   // Unimos todas las clases en una cadena limpia.
@@ -94,6 +97,10 @@ const BrutalCard: React.FC<BrutalCardProps> = ({
       // 3. REBOTE (SPRING)
       // Configuramos un rebote suave pero rápido para que se sienta ágil.
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
+
+      // 4. RESTO DE PROPIEDADES (Spread)
+      // Aplicamos aquí onClick, id, etc. que vengan desde el padre
+      {...props}
     >
       
       {/* Pintamos lo que sea que nos hayan pasado dentro de la tarjeta */}
