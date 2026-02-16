@@ -9,7 +9,8 @@
  * NO contiene lógica compleja, solo datos puros.
  */
 
-// Imports combinados: Se mantienen los originales y se añaden los nuevos (Wrench, Cpu, etc.)
+// Se han añadido los nuevos iconos necesarios para la incorporación (GraduationCap, Hammer, Zap, etc.)
+// manteniendo los originales (BookOpen, Microscope, Pencil, etc.).
 import { 
   BookOpen, Microscope, Pencil, Settings, Home, 
   GraduationCap, Hammer, Zap, Building2, Wrench, Palette, Cpu, BookCheck 
@@ -45,7 +46,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'El Centro',        href: '#centro' },
   { label: 'Oferta Educativa', href: '#oferta' },
   { label: 'Noticias',         href: '#noticias' },
-  { label: 'Matricúlate',      href: '#matricula', variant: 'highlight' },
+  { label: 'Secretaría',       href: '#matricula', variant: 'highlight' },
 ];
 
 

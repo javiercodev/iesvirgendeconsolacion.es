@@ -4,7 +4,7 @@
  * 
  * Este archivo conecta todas las piezas de la web: el menú, la portada, 
  * las noticias y el pie de página. 
- * También gestiona la "memoria" simple de la web (saber si estás en "Inicio", "Centro", "Oferta" o "Noticias").
+ * También gestiona la "memoria" simple de la web (saber si estás en "Inicio", "Centro", "Oferta", "Noticias" o "Secretaría").
  */
 
 import React, { useState } from 'react';
@@ -17,11 +17,13 @@ import BentoGrid from './components/BentoGrid';
 import NewsCards from './components/NewsCards';
 import Footer from './components/Footer';
 import SchoolCenter from './components/SchoolCenter'; // La vista detallada del centro
+// El botón BrutalButton se puede mantener o sustituir, en la sección matrícula usaremos un botón HTML directo para onClick según la incorporación.
 import BrutalButton from "./components/ui/BrutalButton";
 
 // Importaciones nuevas añadidas
 import EducationalOffer from './components/EducationalOffer'; 
 import NewsView from './components/NewsView';
+import SecretariaView from './components/SecretariaView';
 
 // =============================================================================
 // 1. CONFIGURACIÓN DE CONTENIDO (FÁCIL DE EDITAR)
@@ -34,7 +36,7 @@ const TEXTO_CINTA = "★ MATRICULACIÓN ABIERTA ★ FP DUAL ★ ERASMUS+ ★";
 const DATOS_MATRICULA = {
   titulo: "¿LISTO PARA EMPEZAR?",
   descripcion: "No te quedes sin tu plaza. El futuro te espera en nuestros talleres y aulas.",
-  boton: "SOLICITAR ADMISIÓN"
+  boton: "IR A SECRETARÍA" // Texto actualizado según incorporación
 };
 
 /* 
@@ -54,15 +56,15 @@ const App: React.FC = () => {
   /* 
    * ESTADO DE NAVEGACIÓN
    * 'currentView' guarda qué pantalla estamos viendo. 
-   * Se añade 'news' a las opciones posibles para una navegación separada.
+   * Se añade 'secretaria' a las opciones posibles.
    */
-  const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer' | 'news'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'center' | 'offer' | 'news' | 'secretaria'>('home');
 
   /**
    * FUNCIÓN CENTRAL DE NAVEGACIÓN
    * Cambia la vista y asegura que la página vuelva arriba suavemente.
    */
-  const handleNavigate = (view: 'home' | 'center' | 'offer' | 'news') => {
+  const handleNavigate = (view: 'home' | 'center' | 'offer' | 'news' | 'secretaria') => {
     setCurrentView(view);
     // Hacemos scroll al inicio para asegurar que el usuario vea el contenido desde arriba
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -106,8 +108,7 @@ const App: React.FC = () => {
 
             {/* 
                 Últimas novedades 
-                Ahora pasamos onNavigate para que al hacer clic en una noticia
-                podamos cambiar la vista completa a 'news'
+                Pasamos onNavigate para navegación a vista completa de noticias
             */}
             <NewsCards onNavigate={handleNavigate} />
 
@@ -123,9 +124,14 @@ const App: React.FC = () => {
                   <p className="text-xl font-bold mb-8 max-w-lg mx-auto">
                     {DATOS_MATRICULA.descripcion}
                   </p>
-                  <BrutalButton variant="secondary" size="lg">
+                  
+                  {/* Botón de acción para ir a Secretaría */}
+                  <button 
+                    onClick={() => handleNavigate('secretaria')}
+                    className="bg-white text-slate-900 border-2 border-slate-900 px-8 py-4 rounded-xl font-black text-xl hover:scale-105 transition-transform shadow-[4px_4px_0px_0px_#0f172a]"
+                  >
                     {DATOS_MATRICULA.boton}
-                  </BrutalButton>
+                  </button>
                 </div>
 
                 {/* Decoración de fondo (Manchas de color animadas "Blobs") */}
@@ -143,8 +149,11 @@ const App: React.FC = () => {
         {/* === OPCIÓN C: OFERTA EDUCATIVA === */}
         {currentView === 'offer' && <EducationalOffer />}
 
-        {/* === OPCIÓN D: VISTA DE NOTICIAS COMPLETA (Incorporación nueva) === */}
+        {/* === OPCIÓN D: VISTA DE NOTICIAS COMPLETA === */}
         {currentView === 'news' && <NewsView />}
+
+        {/* === OPCIÓN E: VISTA DE SECRETARÍA (Incorporación nueva) === */}
+        {currentView === 'secretaria' && <SecretariaView />}
 
       </main>
 

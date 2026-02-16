@@ -3,7 +3,7 @@
  * @description BARRA DE NAVEGACIÓN SUPERIOR
  * 
  * Gestiona el movimiento del usuario por la aplicación.
- * Es un componente "inteligente": sabe en qué vista estás ('home', 'centro' u 'offer')
+ * Es un componente "inteligente": sabe en qué vista estás ('home', 'center', 'offer', 'news' o 'secretaria')
  * y ajusta el comportamiento del scroll o cambio de pantalla según corresponda.
  */
 
@@ -24,11 +24,11 @@ const TEXTOS_NAVBAR = {
 
 interface NavbarProps {
   // Función que permite a la barra avisar a App.tsx de cambiar de vista
-  // Se añade 'offer' a las opciones posibles
-  onNavigate: (vista: 'home' | 'center' | 'offer' | 'news' ) => void;
+  // Se añade 'secretaria' a las opciones posibles
+  onNavigate: (vista: 'home' | 'center' | 'offer' | 'news' | 'secretaria') => void;
   
   // Saber en qué vista estamos actualmente para iluminar el botón correcto
-  currentView: 'home' | 'center' | 'offer'| 'news';
+  currentView: 'home' | 'center' | 'offer' | 'news' | 'secretaria';
 }
 
 
@@ -46,9 +46,8 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
    * LOGICA DE NAVEGACIÓN:
    * Decide qué hacer cuando el usuario hace clic en un enlace.
    * 
-   * 1. Si es '#centro', cambiamos la pantalla completa.
-   * 2. Si es '#oferta', cambiamos la pantalla completa.
-   * 3. Si es una sección normal (ej: '#noticias'), volvemos al 'home' y hacemos scroll.
+   * 1. Si es '#centro', '#oferta', '#noticias' o '#secretaria', cambiamos la pantalla completa.
+   * 2. Si es una sección normal (ej: '#contacto'), volvemos al 'home' y hacemos scroll.
    */
   const gestionarClicNavegacion = (enlace: string) => {
     
@@ -69,14 +68,21 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
       return;
     } 
 
-    // CASO C: Ir a la vista detallada de noticias (Incorportacion reciente)
+    // CASO C: Ir a la vista detallada de noticias
     if (enlace === '#noticias') {
       onNavigate('news');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
+    }
+
+    // CASO D: Ir a la vista detallada de secretaría (INCORPORACIÓN NUEVA)
+    if (enlace === '#secretaria' || enlace === '#matricula') {
+      onNavigate('secretaria');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
     } 
     
-    // CASO D: Navegación estándar dentro de la Portada
+    // CASO E: Navegación estándar dentro de la Portada
     onNavigate('home');
 
     // Usamos un pequeño temporizador (100ms) para dar tiempo a React
@@ -107,10 +113,12 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
     }
     
     // 2. Botón Activo (Gris claro - Indica dónde estás)
-    // Se aplica si el enlace coincide con la vista actual (centro u oferta)
+    // Se aplica si el enlace coincide con la vista actual
     if (
         (currentView === 'center' && item.href === '#centro') || 
-        (currentView === 'offer' && item.href === '#oferta')
+        (currentView === 'offer' && item.href === '#oferta') ||
+        (currentView === 'news' && item.href === '#noticias') ||
+        (currentView === 'secretaria' && (item.href === '#secretaria' || item.href === '#matricula'))
     ) {
         return `${claseBase} bg-slate-100 border-slate-900`;
     }
@@ -199,19 +207,29 @@ const Navbar: React.FC<NavbarProps> = ({ onNavigate, currentView }) => {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <div className="flex flex-col p-4 gap-3">
-              {NAV_ITEMS.map((item) => (
-                <button
-                  key={item.label}
-                  onClick={() => gestionarClicNavegacion(item.href)}
-                  className={`px-4 py-3 rounded-xl font-bold border-2 border-slate-900 text-center active:scale-95 transition-transform ${
-                    item.variant === 'highlight' 
-                        ? 'bg-orange-400 text-white'       // Naranja sólido
-                        : 'bg-slate-50 hover:bg-slate-100' // Gris claro
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                // Comprobación de estado activo para el menú móvil
+                const isItemActive = (currentView === 'center' && item.href === '#centro') || 
+                                     (currentView === 'offer' && item.href === '#oferta') ||
+                                     (currentView === 'news' && item.href === '#noticias') ||
+                                     (currentView === 'secretaria' && (item.href === '#secretaria' || item.href === '#matricula'));
+
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => gestionarClicNavegacion(item.href)}
+                    className={`px-4 py-3 rounded-xl font-bold border-2 border-slate-900 text-center active:scale-95 transition-transform ${
+                      item.variant === 'highlight' 
+                          ? 'bg-orange-400 text-white'        // Naranja sólido
+                          : isItemActive
+                              ? 'bg-yellow-100'               // Amarillo claro si activo (Móvil)
+                              : 'bg-slate-50 hover:bg-slate-100' // Gris claro defecto
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         )}
