@@ -19,7 +19,7 @@ import BrutalButton from './ui/BrutalButton';
 
 const DATOS_CONTACTO = {
     telefono: "955 83 95 95",
-    email:    "41007904.edu@g.educaand.es",
+    email:    "41007904.secretaria@g.educaand.es",
     fax:      "955 83 96 01",
     horario:  { manana: "8.00 - 14.30h", tarde: "15.15 - 21.30h" },
     
