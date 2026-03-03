@@ -24,6 +24,7 @@ import BrutalButton from "./components/ui/BrutalButton";
 import EducationalOffer from './components/EducationalOffer'; 
 import NewsView from './components/NewsView';
 import SecretariaView from './components/SecretariaView';
+import AccreditationBanner from './components/AccreditationBanner';
 
 // =============================================================================
 // 1. CONFIGURACIÓN DE CONTENIDO (FÁCIL DE EDITAR)
@@ -91,6 +92,9 @@ const App: React.FC = () => {
           <>
             {/* Cabecera grande con imagen de fondo */}
             <Hero onNavigate={handleNavigate} />
+            
+            {/* Banner de acreditaciones (Incorporación nueva) */}
+            <AccreditationBanner />
             
             {/* Mosaico de asignaturas/niveles */}
             <BentoGrid />
