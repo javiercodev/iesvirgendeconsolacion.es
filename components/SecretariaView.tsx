@@ -19,7 +19,7 @@ import BrutalButton from './ui/BrutalButton';
 
 const DATOS_CONTACTO = {
     telefono: "955 83 95 95",
-    email:    "41007904.edu@juntadeandalucia.es",
+    email:    "41007904.edu@g.educaand.es",
     fax:      "955 83 96 01",
     horario:  { manana: "8.00 - 14.30h", tarde: "15.15 - 21.30h" },
     
@@ -91,14 +91,6 @@ const SecretariaView: React.FC = () => {
             esEmail={true} // Ajusta el tamaño de fuente
           />
           
-          {/* Fax (Solo informativo, pero clicable por si acaso usan fax virtual) */}
-          <TarjetaContacto 
-            icon={<Printer className="text-purple-600" size={24} />} 
-            label="FAX" 
-            value={DATOS_CONTACTO.fax} 
-            accion={`tel:${DATOS_CONTACTO.fax.replace(/\s/g, '')}`}
-            color="bg-purple-100"
-          />
           
           {/* Horario (Solo lectura) */}
           <TarjetaContacto 

@@ -276,7 +276,7 @@ export const EDUCATIONAL_OFFER_DETAILED: OfferCategory[] = [
     items: [
       {
         id: "cfgs-automocion",
-        title: "Automoción",
+        title: "Transporte y Mantenimiento de Vehículos",
         subtitle: "Técnico Superior en Automoción",
         details: {
           duration: "2000 horas (2 años)",
